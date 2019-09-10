@@ -218,17 +218,17 @@ class SentimentNetwork:
             
             ### 反向传播 ###
 
-            # 输出层error_term
-            layer_2_error = layer_2 - self.get_target_for_label(label) # Output layer error is the difference between desired target and actual output.
+            # 输出层error term
+            layer_2_error = layer_2 - self.get_target_for_label(label) 
             layer_2_delta = layer_2_error * self.sigmoid_output_2_derivative(layer_2)
 
-            # 隐藏层error_term
-            layer_1_error = layer_2_delta.dot(self.weights_1_2.T) # errors propagated to the hidden layer
-            layer_1_delta = layer_1_error # hidden layer gradients - no nonlinearity so it's the same as the error
+            # 隐藏层error term
+            layer_1_error = layer_2_delta.dot(self.weights_1_2.T) 
+            layer_1_delta = layer_1_error 
 
             # 更新权重
-            self.weights_1_2 -= layer_1.T.dot(layer_2_delta) * self.learning_rate # update hidden-to-output weights with gradient descent step
-            self.weights_0_1 -= self.layer_0.T.dot(layer_1_delta) * self.learning_rate # update input-to-hidden weights with gradient descent step
+            self.weights_1_2 -= layer_1.T.dot(layer_2_delta) * self.learning_rate 
+            self.weights_0_1 -= self.layer_0.T.dot(layer_1_delta) * self.learning_rate 
 
             # 记录正确预测数
             if(layer_2 >= 0.5 and label == 'POSITIVE'):
